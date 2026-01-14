@@ -256,8 +256,8 @@ def mostrar_columnas_requeridas():
     """
     # 🔹 Definir las columnas esperadas y sus descripciones
     expected_columns_display = [
-        "Date time", "Ia, А", "F, Hz", "Motor U, V", "P, kW", "S, kVA",
-        "Cos", "Load, %", "R, kOm", "P, psi", "Pout, psi", "Тmot, ⁰F", "Тliq, ⁰F",
+        "Date time", "F, Hz", "Ia, А", "Motor U, V", "P, kW", "S, kVA",
+        "Cos", "Load, %", "R, kOm", "P, psi", "Тmot, ⁰F", "Тliq, ⁰F", "Pout, psi",
         "Vibr.X/Y, G", "Vibr.Z, G"
     ]
     
@@ -623,6 +623,23 @@ with tab1:
 # -------------------- PREDICCIÓN --------------------------------------------------------------------------------------------------------
 with tab2:
     st.title("Predicción de fallas")
+    archivo_excel = "Formato.xlsx"
+    if os.path.exists(archivo_excel):
+        st.markdown(
+            f"📊 **A continuación se muestra el formato en Excel para la predicción:** `{archivo_excel}`"
+        )
+
+        with open(archivo_excel, "rb") as file:
+            st.download_button(
+                label="📥 Descargar formato.xlsx",
+                data=file,
+                file_name="formato.xlsx",
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                key="download_formato_excel"
+            )
+    else:
+        st.warning("⚠️ El archivo formato.xlsx no se encontró.")
+        
     with st.expander("📋 Estructura esperada del archivo Excel"):
         mostrar_columnas_requeridas()
     # --- Verificar modelos disponibles ---
@@ -1581,4 +1598,5 @@ with tab4:
     **Mario Jarrín**  
     Correo: mariojarrin962@gmail.com
     """)
+
 
